@@ -1,4 +1,4 @@
-# SMSEagle SMS Gateway
+= SMSEagle SMS Gateway
 
 OpenNMS configuration module to support monitoring for SMSEagle SMS Gateway devices.
 The configuration adds capabilities for performance data collection for the following metrics:
@@ -7,44 +7,39 @@ The configuration adds capabilities for performance data collection for the foll
 - Inbox and outbox folder
 - Folder statistics for sent last 24h, last minute and errors in last 24h
 
-## Requirements
+== Requirements
 
 - SMSEagle SMS Gateway
 - Tested with NXS-9700
 
-## Download the configuration package
+== Installation
 
-.Download the configuration files
+.Download and install from GitHub
 [source, bash]
 ----
-mkdir /tmp
-cd /tmp
-curl -L https://github.com/opennms-config-modules/smseagle-sms-gateway/archive/1.0.tar.gz | tar xz
-cd smseagle-sms-gateway-1.0
+mkdir ${HOME}/opennms-config-workspace
+cd ${HOME}/opennms-config-workspace
+git clone https://github.com/opennms-config-modules/smseagle-sms-gateway.git
 ----
 
-## Enable performance data collection
+=== Data Collection
 
+.Install datacollection configuration
 [source, bash]
 ----
-cp datacollection/smseagle.xml ${OPENNMS_HOME}/etc/datacollection
+cp ${HOME}/opennms-config-workspace/smseagle-sms-gateway/datacollection/*.xml ${OPENNMS_HOME}/etc/datacollection
 ----
 
-.Add include statement in alphabetical order in ${OPENNMS_HOME}/etc/datacollection-config.xml
-[source, bash]
+.Include in datacollection-config.xml
+[source, xml]
 ----
 <include-collection dataCollectionGroup="SMSEagle"/>
 ----
 
-## Add performance graphs
+=== Graph Report Definitions
 
+.Install graph report definitions
 [source, bash]
 ----
-cp snmp-graph.properties.d/smseagle-graph.properties ${OPENNMS_HOME}/etc/snmp-graph.properties.d/
+cp ${HOME}/opennms-config-workspace/smseagle-sms-gateway/graphs/*.properties ${OPENNMS_HOME}/etc/snmp-graph.properties.d
 ----
-
-# License & Authors
-
-- Author:: Ronny Trommer <ronny@opennms.org>
-
-Licensed under the GNU Affero General Public License 3+. You may obtain a copy of the License at http://www.gnu.org/licenses/agpl-3.0.html.
